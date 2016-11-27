@@ -3,7 +3,7 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
 # set temporaries names
 SET(SRC_PATH src)
-SET(EXECUTABLE local_var_detach)
+SET(EXECUTABLE local_var_join)
 
 # store sources in SOURCES varable
 SET (SOURCES main.cpp)
