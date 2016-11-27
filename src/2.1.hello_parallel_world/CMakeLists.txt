@@ -3,7 +3,7 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
 # set temporaries names
 SET(SRC_PATH src)
-SET(EXECUTABLE hello_parallel_world)
+SET(EXECUTABLE oops_detach)
 
 # store sources in SOURCES varable
 SET (SOURCES main.cpp)
