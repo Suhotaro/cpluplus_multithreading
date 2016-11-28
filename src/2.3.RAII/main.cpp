@@ -1,21 +1,7 @@
 #include <iostream>
 #include <thread>
 
-struct func
-{
-	int & i;
-	func(int &i_) : i(i_) {}
-
-	void operator() ()
-	{
-		std::cout << "operator start\n";
-
-		for (unsigned int j = 0; j < 100; j++)
-			std::cout << i << std::endl;
-
-		std::cout << "operator end\n";
-	}
-};
+#include "../include/func.h"
 
 class thread_guard
 {

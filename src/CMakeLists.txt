@@ -1,6 +1,7 @@
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
 SET(SKIP_DIR CMakeFiles )
+SET(INCLUDE_DIR include )
 SET( MY_CURRENT_DIR ${CMAKE_CURRENT_LIST_DIR} )
 
 #macro declaration
@@ -22,7 +23,10 @@ MESSAGE( STATUS "SUBDIRS are:         " ${SUBDIRS} )
 
 #iterate over found directories
 foreach(subdir ${SUBDIRS})
-    if ( NOT "${subdir}" STREQUAL "${SKIP_DIR}" )
+
+    MESSAGE( STATUS "SUBDIR are:         " ${subdir} )
+
+    if ( NOT ("${subdir}" STREQUAL "${SKIP_DIR}" OR "${subdir}" STREQUAL "${INCLUDE_DIR}"))
         MESSAGE( STATUS "DIR is:         " ${subdir} )
         ADD_SUBDIRECTORY(${subdir})
     else()
