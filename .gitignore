@@ -16,3 +16,4 @@ accumulate
 thread_safe_stack
 std_lock
 hierarchical_mutex
+std_lock_and_unique_lock
