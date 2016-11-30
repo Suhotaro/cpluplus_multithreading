@@ -3,3 +3,15 @@ CMakeCache.txt
 cmake_install.cmake
 Makefile
 *~
+
+hello_parallel_world
+local_var_detach
+local_var_join
+local_var_raii
+edit_document
+moving_thread_object
+scoped_thread
+threads_and_containers
+accumulate
+thread_safe_stack
+std_lock
