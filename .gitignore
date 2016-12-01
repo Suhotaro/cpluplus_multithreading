@@ -4,6 +4,8 @@ cmake_install.cmake
 Makefile
 *~
 
+build
+
 hello_parallel_world
 local_var_detach
 local_var_join
