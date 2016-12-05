@@ -74,11 +74,28 @@ void ex3() {
 	assert(p.load() == &arr[1]);
 }
 
+void ex4() {
+	std::atomic<int> p(0);
+	auto handle = [&]() { cout << "p: " << p << endl; };
+
+	handle();
+
+	p.fetch_sub(1);
+	handle();
+
+	p.fetch_sub(1);
+	handle();
+
+
+
+}
+
 int main()
 {
 	ex1();
 	ex2();
 	ex3();
+	ex4();
 
 	return 0;
 }
