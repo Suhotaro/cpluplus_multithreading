@@ -1,5 +1,6 @@
 #include <iostream>
 #include <mutex>
+#include <memory>
 #include <thread>
 #include <condition_variable>
 
@@ -33,9 +34,7 @@ public:
 	}
 
 	void push(T new_value) {
-	    std::shared_ptr<T> sp = std::make_shared<T>(std::move(new_value));
-
-		cout << " new_val:" << new_value << ", sh_value:" << *sp;
+	    std::shared_ptr<T> new_data = std::make_shared<T>(std::move(new_value));
 
 		unique_ptr<node> p(new node);
 		tail->data = new_data;
@@ -59,9 +58,11 @@ int main()
 	q.push(6);
 	q.push(7);
 
-	//q.try_pop();
+	shared_ptr<int> a = q.try_pop();
 
-	q.show();
+	cout << *a << endl;
+
+	//q.show();
 
 	return 0;
 }
