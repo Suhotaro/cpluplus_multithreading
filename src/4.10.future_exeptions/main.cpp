@@ -6,7 +6,7 @@
 void job(std::promise<int> &p, double numerator, double denominator) {
 
 	if (denominator == 0) {
-		p.set_exception(std::copy_exception(std::logic_error("divide by 0")));
+		p.set_exception(std::make_exception_ptr(std::logic_error("divide by 0")));
 		return;
 	}
 
