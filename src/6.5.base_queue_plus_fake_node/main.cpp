@@ -6,6 +6,10 @@
 
 using namespace std;
 
+void show(int num) {
+	std::cout << "num:" << num << endl;
+}
+
 template<typename T>
 class queue {
 private:
@@ -44,10 +48,10 @@ public:
 		tail = new_tail;
 	}
 
-	void show() {
-		for (node * t = head->next.get(); t != NULL; t = t->next.get())
-			cout << " val:" << *t->data;
-		cout << endl;
+	template <typename Function>
+	void do_job(Function f) {
+		for (node * t = head->next.get(); t != tail; t = t->next.get())
+			f(*t->data);
 	}
 };
 
@@ -58,11 +62,11 @@ int main()
 	q.push(6);
 	q.push(7);
 
-	shared_ptr<int> a = q.try_pop();
+	//shared_ptr<int> a = q.try_pop();
 
-	cout << *a << endl;
+	//cout << *a << endl;
 
-	//q.show();
+	q.do_job(show);
 
 	return 0;
 }
