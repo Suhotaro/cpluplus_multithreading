@@ -21,18 +21,18 @@ class threadsafe_lookup_table
 		bucket_data data;
 		mutable boost::shared_mutex mutex;
 
-		bucket_iterator find_entry_for(Key const& key) const
+		bucket_iterator find_entry_for(Key const& key)
 		{
 			return find_if(data.begin(), data.end(),
-					[&](bucket_value const& item)
+					[&](bucket_value const& item)->bool
 					{ return item.first == key; });
 		}
 
 	public:
-		Value value_for(Key const& key, Value const& default_value) const
+		Value value_for(Key const& key, Value const& default_value)
 		{
 			boost::shared_lock<boost::shared_mutex> lock(mutex);
-			bucket_iterator const found_entry = find_entry_for(key);
+			bucket_iterator found_entry = find_entry_for(key);
 			return (found_entry==data.end()) ?
 					default_value : found_entry->second;
 		}
@@ -41,7 +41,7 @@ class threadsafe_lookup_table
 		{
 			unique_lock<boost::shared_mutex> lock(mutex);
 
-			bucket_iterator const found_entry = find_entry_for(key);
+			bucket_iterator found_entry = find_entry_for(key);
 			if (found_entry == data.end())
 				data.push_back(bucket_value(key, value));
 			else
@@ -52,7 +52,7 @@ class threadsafe_lookup_table
 		{
 			unique_lock<boost::shared_mutex> lock(mutex);
 
-			bucket_iterator const found_entry = find_entry_for(key);
+			bucket_iterator found_entry = find_entry_for(key);
 			if (found_entry != data.end())
 				data.erase(found_entry);
 		}
@@ -65,7 +65,7 @@ class threadsafe_lookup_table
 
 	bucket_type& get_bucket(Key const& key)
 	{
-		size_t const bucket_index = haser(key)%buckets.size();
+		size_t const bucket_index = hasher(key)%buckets.size();
 		return *buckets[bucket_index];
 	}
 
@@ -86,7 +86,7 @@ public:
 		threadsafe_lookup_table const& other) = delete;
 
 	Value value_for(Key const& key,
-		Value const& default_value=Value()) const
+		Value const& default_value=Value())
 	{
 		return get_bucket(key).value_for(key, default_value);
 	}
@@ -111,7 +111,7 @@ public:
 		map<Key, Value> res;
 		for (unsigned i = 0; i < buckets.size(); i++)
 		{
-			bucket_iterator it;
+			typename bucket_type::bucket_iterator it;
 			for (it = buckets[i].data.begin();
 				 it != buckets[i].data.end();
 				 it++)
@@ -126,7 +126,14 @@ public:
 
 int main()
 {
+	threadsafe_lookup_table<int, string> table;
 
+	table.add_or_update_mapping(3, "Hello");
+	table.add_or_update_mapping(10, ", ");
+	table.add_or_update_mapping(98, "world");
+
+	string str = table.value_for(98, "none");
+	cout << "value: " << str << endl;
 
 	return 0;
 }

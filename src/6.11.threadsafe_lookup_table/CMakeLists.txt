@@ -23,7 +23,7 @@ find_package(Threads REQUIRED)
 find_package(Boost COMPONENTS system filesystem REQUIRED)
 
 # add additional compiller options
-SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -pthread")
+SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -pthread -lboost_thread")
 
 # store compillers flags we are going to use into OPTIONS varable
 SET(OPTIONS -Wall -Werror -g2 -O0)
