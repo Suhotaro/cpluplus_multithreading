@@ -3,7 +3,7 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
 # set temporaries names
 SET(SRC_PATH src)
-SET(EXECUTABLE threadsafe_lookup_table)
+SET(EXECUTABLE threadsafe_list)
 
 # store sources in SOURCES varable
 SET (SOURCES main.cpp)
@@ -23,7 +23,7 @@ find_package(Threads REQUIRED)
 find_package(Boost COMPONENTS system filesystem REQUIRED)
 
 # add additional compiller options
-SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -pthread -lboost_thread -lboost_system")
+SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -pthread -lboost_thread")
 
 # store compillers flags we are going to use into OPTIONS varable
 SET(OPTIONS -Wall -Werror -g2 -O0)
@@ -35,7 +35,7 @@ add_definitions(${OPTIONS})
 add_executable(${EXECUTABLE} ${SOURCES} )
 
 # add linkage flags -lpthread
-target_link_libraries(${EXECUTABLE} ${CMAKE_THREAD_LIBS_INIT} "-lboost_thread -lboost_system")
+target_link_libraries(${EXECUTABLE} ${CMAKE_THREAD_LIBS_INIT} ${Boost_LIBRARIES})
 
 # specify directory the program will be installed to
 INSTALL(PROGRAMS ${EXECUTABLE} 
