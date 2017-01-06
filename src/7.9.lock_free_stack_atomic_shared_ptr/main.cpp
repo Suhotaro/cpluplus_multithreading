@@ -56,9 +56,8 @@ public:
 			n = n->next;
 		}
 	}
-#endif
 };
-
+#endif
 
 int main()
 {
